@@ -13,6 +13,8 @@ import { generateOrganizationSchema, generateWebsiteSchema } from '@/utils/struc
 const Index = () => {
   const structuredData = [generateOrganizationSchema(), generateWebsiteSchema()];
   const [showPopup, setShowPopup] = useState(true);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [showInstallBanner, setShowInstallBanner] = useState(false);
 
   useEffect(() => {
     if (showPopup) {
@@ -20,6 +22,26 @@ const Index = () => {
       return () => clearTimeout(timer);
     }
   }, [showPopup]);
+
+  // PWA install prompt for mobile
+  useEffect(() => {
+    const handler = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstallBanner(true);
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      setShowInstallBanner(false);
+      setDeferredPrompt(null);
+    }
+  };
 
   return (
     <>
@@ -55,6 +77,17 @@ const Index = () => {
         >
           <p className="text-lg text-center text-muted-foreground">Empowering your business with beautiful digital solutions. 🚀</p>
         </PopupCard>
+        {showInstallBanner && (
+          <div className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-white shadow-lg rounded-xl px-6 py-4 z-50 flex flex-col items-center animate-fade-in">
+            <span className="font-semibold mb-2">Install this app on your phone!</span>
+            <button
+              className="bg-blue-600 text-white px-4 py-2 rounded-full shadow hover:bg-blue-700 transition"
+              onClick={handleInstallClick}
+            >
+              Add to Home Screen
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
