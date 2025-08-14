@@ -35,7 +35,7 @@ const FloatingContactButton = () => {
           <Smartphone className="w-6 h-6" />
         </a>
         <a
-          href="tel:+254700000000"
+          href="tel:0798362654"
           className="bg-blue-500 text-white p-4 rounded-full shadow-large hover:shadow-glow transition-all duration-300 pulse-glow"
           aria-label="Call Us"
         >
