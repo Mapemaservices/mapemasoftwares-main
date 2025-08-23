@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,11 +16,23 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (location.pathname !== '/') {
+      navigate(`/#${sectionId}`);
       setIsMenuOpen(false);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        setIsMenuOpen(false);
+      } else {
+        // If not found, update hash and let useEffect on home handle scroll
+        window.location.hash = `#${sectionId}`;
+        setIsMenuOpen(false);
+      }
     }
   };
 
@@ -66,6 +79,12 @@ const Header = () => {
             >
               Contact
             </button>
+            <Link
+              to="/projects"
+              className="text-foreground hover:text-primary transition-colors duration-200"
+            >
+              Projects
+            </Link>
           </nav>
 
           {/* Contact Info & CTA */}
@@ -131,6 +150,13 @@ const Header = () => {
               >
                 Contact
               </button>
+              <Link
+                to="/projects"
+                className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Projects
+              </Link>
               <div className="pt-4 border-t border-border/50">
                 <div className="space-y-2 text-sm text-muted-foreground">
                   <a 

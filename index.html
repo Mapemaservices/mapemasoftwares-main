@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
   <meta charset="UTF-8" />
+  <link rel="manifest" href="/site.webmanifest" />
   <meta name="mobile-web-app-capable" content="yes" />
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -51,6 +52,42 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/service-worker.js');
+        });
+      }
+
+      // Custom PWA install prompt
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        // Show a custom install button (example)
+        const btn = document.createElement('button');
+        btn.textContent = 'Install Mapema App';
+        btn.style.position = 'fixed';
+        btn.style.bottom = '24px';
+        btn.style.right = '24px';
+        btn.style.zIndex = 1000;
+        btn.style.background = '#2563eb';
+        btn.style.color = '#fff';
+        btn.style.border = 'none';
+        btn.style.borderRadius = '8px';
+        btn.style.padding = '12px 20px';
+        btn.style.boxShadow = '0 2px 8px #0002';
+        btn.style.cursor = 'pointer';
+        btn.onclick = function() {
+          btn.remove();
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(() => {
+            deferredPrompt = null;
+          });
+        };
+        document.body.appendChild(btn);
+      });
+    </script>
     <script type="text/javascript">
       (function(c,l,a,r,i,t,y){
           c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
