@@ -12,13 +12,12 @@ export default defineConfig({
   },
   plugins: [
     react(),
-  viteCompression(),
-    mode === 'development' &&
+    viteCompression(),
     componentTagger(),
-  ].filter(Boolean),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
-}));
+});
