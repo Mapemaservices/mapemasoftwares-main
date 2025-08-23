@@ -26,7 +26,7 @@ const FloatingContactButton = () => {
         }`}
       >
         <a
-          href="https://wa.me/254700000000"
+          href="https://wa.me/254704186906"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-green-500 text-white p-4 rounded-full shadow-large hover:shadow-glow transition-all duration-300 pulse-glow"
@@ -35,7 +35,7 @@ const FloatingContactButton = () => {
           <Smartphone className="w-6 h-6" />
         </a>
         <a
-          href="tel:0798362654"
+          href="tel:+254704186906"
           className="bg-blue-500 text-white p-4 rounded-full shadow-large hover:shadow-glow transition-all duration-300 pulse-glow"
           aria-label="Call Us"
         >
