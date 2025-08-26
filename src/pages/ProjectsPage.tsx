@@ -60,7 +60,7 @@ const ProjectsPage: React.FC = () => {
   return (
     <>
       <Header />
-      <main className="max-w-4xl mx-auto py-8 px-2 sm:px-4 min-h-[70vh]">
+  <main className="max-w-4xl mx-auto py-8 px-2 sm:px-4 min-h-[70vh] mt-20">
         <h1 className="text-2xl sm:text-3xl font-bold mb-8 text-center">Our Projects</h1>
         <div className="mb-8 flex flex-col items-center">
           <a href="#contact" className="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold shadow hover:bg-blue-700 transition mb-4">

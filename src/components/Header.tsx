@@ -22,6 +22,12 @@ const Header = () => {
   const scrollToSection = (sectionId: string) => {
     if (location.pathname !== '/') {
       navigate(`/#${sectionId}`);
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 400); // Wait for navigation/render
       setIsMenuOpen(false);
     } else {
       const element = document.getElementById(sectionId);
@@ -29,7 +35,6 @@ const Header = () => {
         element.scrollIntoView({ behavior: 'smooth' });
         setIsMenuOpen(false);
       } else {
-        // If not found, update hash and let useEffect on home handle scroll
         window.location.hash = `#${sectionId}`;
         setIsMenuOpen(false);
       }
@@ -84,6 +89,12 @@ const Header = () => {
               className="text-foreground hover:text-primary transition-colors duration-200"
             >
               Projects
+            </Link>
+            <Link
+              to="/onboarding"
+              className="text-foreground hover:text-primary transition-colors duration-200"
+            >
+              Onboarding
             </Link>
           </nav>
 
@@ -156,6 +167,13 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Projects
+              </Link>
+              <Link
+                to="/onboarding"
+                className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Onboarding
               </Link>
               <div className="pt-4 border-t border-border/50">
                 <div className="space-y-2 text-sm text-muted-foreground">

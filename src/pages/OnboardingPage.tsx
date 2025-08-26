@@ -39,10 +39,12 @@ const OnboardingPage: React.FC = () => {
     images: FileList | null;
     videos: FileList | null;
     documents: FileList | null;
+    logo: FileList | null;
   }>({
     images: null,
     videos: null,
     documents: null,
+    logo: null,
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -353,11 +355,11 @@ const OnboardingPage: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Style *</label>
-                    <select 
-                      name="style" 
-                      value={form.style} 
-                      onChange={handleChange} 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition" 
+                    <select
+                      name="style"
+                      value={form.style}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
                       required
                     >
                       <option value="">Select a style</option>
@@ -369,27 +371,58 @@ const OnboardingPage: React.FC = () => {
                       <option value="Elegant">Elegant</option>
                     </select>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Branding Guidelines</label>
-                    <input 
-                      name="branding" 
-                      value={form.branding} 
-                      onChange={handleChange} 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition" 
-                      placeholder="Logo, colors, fonts, etc." 
+                    <input
+                      name="branding"
+                      value={form.branding}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                      placeholder="Logo, colors, fonts, etc."
                     />
                   </div>
-                  
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Upload Logo (if available)</label>
+                    <div className="relative border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                      <input
+                        name="logo"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleChange}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      />
+                      <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      <p className="mt-1 text-sm text-gray-600">Upload your logo file (PNG, JPG, SVG)</p>
+                      {/* Logo preview */}
+                      {uploads.logo && uploads.logo.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mt-3 justify-center">
+                          {Array.from(uploads.logo).map((file, idx) => (
+                            <img
+                              key={idx}
+                              src={URL.createObjectURL(file)}
+                              alt={file.name}
+                              className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded border"
+                              style={{ maxWidth: '100%' }}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
                   <div className="md:col-span-2">
                     <label className="block text-sm font-medium text-gray-700 mb-2">Example Websites You Like</label>
-                    <textarea 
-                      name="exampleWebsites" 
-                      value={form.exampleWebsites} 
-                      onChange={handleChange} 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition" 
-                      placeholder="List websites you like and what you like about them" 
-                      rows={3} 
+                    <textarea
+                      name="exampleWebsites"
+                      value={form.exampleWebsites}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                      placeholder="List websites you like and what you like about them"
+                      rows={3}
                     />
                   </div>
                 </div>
