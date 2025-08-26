@@ -60,7 +60,7 @@ const Index = () => {
         ]}
         structuredData={structuredData}
       />
-      <div className="min-h-screen">
+      <div className="min-h-screen pt-20 lg:pt-24">
         <Header />
         <main>
           <Hero />
