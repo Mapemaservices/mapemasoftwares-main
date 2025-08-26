@@ -166,38 +166,38 @@ const OnboardingPage: React.FC = () => {
   return (
     <>
       <Header />
-  <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4 mt-20">
+  <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-6 sm:py-8 px-2 sm:px-4 mt-20">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-10">
-            <h1 className="text-4xl font-bold text-gray-800 mb-3">Welcome to Our Onboarding Process</h1>
-            <p className="text-gray-600 text-lg">Help us understand your business needs to create the perfect website</p>
+          <div className="text-center mb-8 sm:mb-10">
+            <h1 className="text-2xl sm:text-4xl font-bold text-gray-800 mb-2 sm:mb-3">Welcome to Our Onboarding Process</h1>
+            <p className="text-gray-600 text-base sm:text-lg">Help us understand your business needs to create the perfect website</p>
           </div>
-          
+
           {/* Progress bar */}
-          <div className="mb-10">
-            <div className="flex justify-between mb-2">
+          <div className="mb-8 sm:mb-10 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+            <div className="flex min-w-[600px] sm:min-w-0 justify-between mb-2 gap-2">
               {sections.map((section, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSection(index)}
-                  className={`text-sm font-medium ${currentSection === index ? 'text-indigo-600' : 'text-gray-500'}`}
+                  className={`text-xs sm:text-sm font-medium px-2 py-1 sm:px-3 sm:py-1.5 rounded transition ${currentSection === index ? 'text-indigo-600 bg-indigo-50' : 'text-gray-500 bg-transparent'}`}
+                  style={{ minWidth: 90 }}
                 >
                   {section}
                 </button>
               ))}
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2.5">
-              <div 
-                className="bg-indigo-600 h-2.5 rounded-full transition-all duration-500" 
+              <div
+                className="bg-indigo-600 h-2.5 rounded-full transition-all duration-500"
                 style={{ width: `${((currentSection + 1) / sections.length) * 100}%` }}
               ></div>
             </div>
           </div>
-          
+
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div className="p-1 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
-            
-            <form onSubmit={handleSubmit} className="p-8">
+            <div className="p-0.5 sm:p-1 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+            <form onSubmit={handleSubmit} className="p-3 sm:p-8">
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-gray-800 mb-2">{sections[currentSection]}</h2>
                 <div className="w-12 h-1 bg-indigo-600 rounded"></div>
@@ -456,7 +456,8 @@ const OnboardingPage: React.FC = () => {
                               key={idx}
                               src={URL.createObjectURL(file)}
                               alt={file.name}
-                              className="w-16 h-16 object-cover rounded border"
+                              className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded border"
+                              style={{ maxWidth: '100%' }}
                             />
                           ))}
                         </div>
@@ -492,9 +493,9 @@ const OnboardingPage: React.FC = () => {
                       <p className="mt-1 text-sm text-gray-600">Drag videos or click to browse</p>
                       {/* Video file list */}
                       {uploads.videos && uploads.videos.length > 0 && (
-                        <ul className="mt-3 text-left text-xs text-gray-700">
+                        <ul className="mt-3 text-left text-xs text-gray-700 break-words">
                           {Array.from(uploads.videos).map((file, idx) => (
-                            <li key={idx} className="truncate">{file.name}</li>
+                            <li key={idx} className="truncate max-w-[120px] sm:max-w-xs">{file.name}</li>
                           ))}
                         </ul>
                       )}
@@ -518,9 +519,9 @@ const OnboardingPage: React.FC = () => {
                       <p className="mt-1 text-sm text-gray-600">Drag documents or click to browse</p>
                       {/* Document file list */}
                       {uploads.documents && uploads.documents.length > 0 && (
-                        <ul className="mt-3 text-left text-xs text-gray-700">
+                        <ul className="mt-3 text-left text-xs text-gray-700 break-words">
                           {Array.from(uploads.documents).map((file, idx) => (
-                            <li key={idx} className="truncate">{file.name}</li>
+                            <li key={idx} className="truncate max-w-[120px] sm:max-w-xs">{file.name}</li>
                           ))}
                         </ul>
                       )}
@@ -718,7 +719,7 @@ const OnboardingPage: React.FC = () => {
               )}
 
               {/* Navigation buttons */}
-              <div className="flex justify-between mt-10">
+              <div className="flex flex-col sm:flex-row justify-between gap-4 mt-10">
                 <button 
                   type="button" 
                   onClick={prevSection} 
